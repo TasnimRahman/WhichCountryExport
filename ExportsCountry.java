@@ -42,6 +42,23 @@ public class ExportsCountry
                   }
             }
     }
+    
+    public int numberOfExports(CSVParser parser , String  exportItem){
+                
+        int count = 0;
+        for (CSVRecord record : parser) {
+            
+            String countryName = record.get("Exports");
+            
+            if(countryName.contains(exportItem)){
+              String export = record.get("Country");
+              count = count + 1;
+             
+               }
+            
+            }
+            return count;
+      }
        
     public void tester() {
         FileResource fr = new FileResource();
@@ -49,5 +66,7 @@ public class ExportsCountry
         System.out.println(countryInfo(parser, "Germany"));
         parser = fr.getCSVParser();
         listExportsTwoProducts(parser ,"gold","diamonds");
-    }
+        parser = fr.getCSVParser();
+        System.out.println(numberOfExports(parser , "gold"));
+      }
 }
